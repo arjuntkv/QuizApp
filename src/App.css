@@ -63,8 +63,12 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 375px) {
   .navbar {
     width: 350px;
+  }
+
+  .main {
+    height: 2000px;
   }
 }

@@ -176,8 +176,8 @@ select {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 375px) {
   .cardMain {
-    width: 360px;
+    width: 340px;
   }
 }
