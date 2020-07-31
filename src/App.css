@@ -67,12 +67,12 @@
 @media (max-width: 375px) {
   .navbar {
     width: 350px;
-    font-size: small;
+    font-size: large;
   }
 }
 
 @media (max-width: 400px) {
   .navbar {
-    font-size: small;
+    font-size: large;
   }
 }
