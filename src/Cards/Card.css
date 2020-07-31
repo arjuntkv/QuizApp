@@ -180,4 +180,8 @@ select {
   .cardMain {
     width: 340px;
   }
+
+  .card {
+    height: 350px;
+  }
 }
