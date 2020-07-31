@@ -33,6 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #333;
   font-size: xx-large;
   color: white;
   background-color: rgb(161, 62, 253);
@@ -52,4 +53,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* media queries */
+
+@media (max-width: 500px) {
+  .navbar {
+    width: 400px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar {
+    width: 350px;
+  }
 }

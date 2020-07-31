@@ -152,5 +152,32 @@ select {
   margin-bottom: 1px;
 }
 
-.opt {
+/* media queries */
+
+@media (max-width: 500px) {
+  .cardMain {
+    width: 400px;
+  }
+
+  .card {
+    width: 300px;
+  }
+
+  .btn {
+    width: 200px;
+    font-size: 13px;
+  }
+
+  .next {
+    width: 200px;
+  }
+  .restart {
+    width: 200px;
+  }
+}
+
+@media (max-width: 400px) {
+  .cardMain {
+    width: 360px;
+  }
 }

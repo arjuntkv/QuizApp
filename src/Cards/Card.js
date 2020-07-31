@@ -23,7 +23,6 @@ class Card extends Component {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.results);
         this.setState({ items: data.results }, () => this.optionsRandoming());
       });
   };
@@ -45,7 +44,6 @@ class Card extends Component {
         this.fetchItems();
       }
     );
-    console.log(e.target.value);
   };
 
   //Randoming options ie connecting both incorrect and right options
