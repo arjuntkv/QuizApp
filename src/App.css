@@ -60,15 +60,19 @@
 @media (max-width: 500px) {
   .navbar {
     width: 400px;
+    font-size: x-large;
   }
 }
 
 @media (max-width: 375px) {
   .navbar {
     width: 350px;
+    font-size: small;
   }
+}
 
-  .main {
-    height: 2000px;
+@media (max-width: 400px) {
+  .navbar {
+    font-size: small;
   }
 }
