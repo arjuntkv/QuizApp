@@ -128,3 +128,29 @@
   cursor: pointer;
   border: 2px solid #fcc7c7;
 }
+
+.category-main {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 30px;
+}
+
+.heading {
+  width: 300px;
+}
+
+select {
+  padding: 7px;
+  outline: none;
+  border-radius: 4px;
+}
+
+.category-main select option {
+  color: #5190ed;
+  line-height: 70px;
+  margin-bottom: 1px;
+}
+
+.opt {
+}

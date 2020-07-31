@@ -10,6 +10,7 @@ class Card extends Component {
     disabled: false,
     correct: "",
     restart: false,
+    category: 11,
   };
 
   componentDidMount() {
@@ -18,7 +19,7 @@ class Card extends Component {
 
   fetchItems = () => {
     fetch(
-      "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple"
+      `https://opentdb.com/api.php?amount=10&category=${this.state.category}&difficulty=easy&type=multiple`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -27,7 +28,27 @@ class Card extends Component {
       });
   };
 
-  //Randoming options ie connecting both incoorect and right options
+  //to handle Category Change
+  handleCategoryChange = (e) => {
+    this.setState(
+      {
+        category: e.target.value,
+        items: [],
+        id: 0,
+        correct_options: [],
+        score: 0,
+        disabled: false,
+        correct: "",
+        restart: false,
+      },
+      () => {
+        this.fetchItems();
+      }
+    );
+    console.log(e.target.value);
+  };
+
+  //Randoming options ie connecting both incorrect and right options
   optionsRandoming = () => {
     if (this.state.items.length > 0) {
       var incorrect_options = this.state.items[this.state.id].incorrect_answers;
@@ -93,74 +114,132 @@ class Card extends Component {
     });
     this.fetchItems();
   };
+
   render() {
     return (
-      <div className="cardMain">
-        {/* ============================== */}
-        <div className="alert">
-          {this.state.correct === "true" ? (
-            <div className="green">Correct Answer</div>
+      <div>
+        {/* Navbar Part ==>*/}
+        <div className="navbar">
+          {/* ================================= */}
+          {/* if it contains "Entertainment: films" then return split(":")[1] else return category */}
+          <p className="heading">
+            {this.state.items.length > 0
+              ? this.state.items[0].category.split(":")[1] === undefined
+                ? this.state.items[0].category + " "
+                : this.state.items[0].category.split(":")[1] + " "
+              : ""}
+            Quiz
+          </p>
+          {/* ================================== */}
+          <div className="category-main">
+            <select
+              value={this.state.category}
+              onChange={this.handleCategoryChange}
+            >
+              <option className="opt" value={11}>
+                Films
+              </option>
+              <option value={14}>Tv</option>
+              <option value={26}>Celebrities</option>
+              <option value={18}>Computers</option>
+              <option value={27}>Animals</option>
+              <option value={21}>Sports </option>
+              <option value={15}>Video Games</option>
+              <option value={28}>Vehicles</option>
+              <option value={23}>History</option>
+              <option value={0}>Random</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Main Part ==> */}
+        <div className="cardMain">
+          {/* ============================== */}
+          <div className="alert">
+            {this.state.correct === "true" ? (
+              <div className="green">Correct Answer</div>
+            ) : (
+              ""
+            )}
+
+            {this.state.correct === "false" ? (
+              <div className="red">Wrong Answer</div>
+            ) : (
+              ""
+            )}
+          </div>
+
+          {/* =========================== */}
+          <div className="score">Score: {this.state.score}</div>
+          <div className="noofqns">Questions: {this.state.id + 1} / 10</div>
+
+          {/* ============================== */}
+          {this.state.items.length > 0 ? (
+            <div className="card">
+              {/* to bypass &#039 */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.state.items[this.state.id].question,
+                }}
+              ></div>
+              {/* btn1 */}
+              <button
+                className="btn"
+                onClick={() => this.handleClick(0)}
+                dangerouslySetInnerHTML={{
+                  __html: this.state.correct_options[0],
+                }}
+              ></button>
+              {/* btn2 */}
+              <button
+                className="btn"
+                onClick={() => this.handleClick(1)}
+                dangerouslySetInnerHTML={{
+                  __html: this.state.correct_options[1],
+                }}
+              ></button>
+              {/* btn3 */}
+              <button
+                className="btn"
+                onClick={() => this.handleClick(2)}
+                dangerouslySetInnerHTML={{
+                  __html: this.state.correct_options[2],
+                }}
+              ></button>
+              {/* btn4 */}
+              <button
+                className="btn"
+                onClick={() => this.handleClick(3)}
+                dangerouslySetInnerHTML={{
+                  __html: this.state.correct_options[3],
+                }}
+              ></button>
+            </div>
+          ) : (
+            "loading...."
+          )}
+
+          {/* ============================== */}
+
+          {this.state.items.length > 0 && this.state.restart === false ? (
+            <button className="next" onClick={this.increaseCount}>
+              Next Quiz
+            </button>
           ) : (
             ""
           )}
 
-          {this.state.correct === "false" ? (
-            <div className="red">Wrong Answer</div>
+          {/* ============================== */}
+
+          {(this.state.items.length > 0 && this.state.restart === true) ||
+          this.state.id >= 10 ? (
+            <button onClick={this.restartQuiz} className="restart">
+              Restart Quiz
+            </button>
           ) : (
             ""
           )}
         </div>
-
-        {/* =========================== */}
-        <div className="score">Score: {this.state.score}</div>
-        <div className="noofqns">Questions: {this.state.id + 1} / 10</div>
-
-        {/* ============================== */}
-        {this.state.items.length > 0 ? (
-          <div className="card">
-            {/* to bypass &#039 */}
-            <div
-              dangerouslySetInnerHTML={{
-                __html: this.state.items[this.state.id].question,
-              }}
-            ></div>
-            <button className="btn" onClick={() => this.handleClick(0)}>
-              {this.state.correct_options[0]}
-            </button>
-            <button className="btn" onClick={() => this.handleClick(1)}>
-              {this.state.correct_options[1]}
-            </button>
-            <button className="btn" onClick={() => this.handleClick(2)}>
-              {this.state.correct_options[2]}
-            </button>
-            <button className="btn" onClick={() => this.handleClick(3)}>
-              {this.state.correct_options[3]}
-            </button>
-          </div>
-        ) : (
-          "loading...."
-        )}
-
-        {/* ============================== */}
-
-        {this.state.items.length > 0 && this.state.restart === false ? (
-          <button className="next" onClick={this.increaseCount}>
-            Next Quiz
-          </button>
-        ) : (
-          ""
-        )}
-
-        {/* ============================== */}
-
-        {(this.state.items.length > 0 && this.state.restart === true) ||
-        this.state.id >= 10 ? (
-          <button onClick={this.restartQuiz} className="restart">
-            Restart Quiz
-          </button>
-        ) : (
-          ""
-        )}
       </div>
     );
   }

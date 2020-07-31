@@ -7,9 +7,6 @@ function App() {
     <div>
       <div className="main">
         <div className="Container">
-          <div className="navbar">
-            <p>Movie Quiz</p>
-          </div>
           <div className="flex">
             <div>
               <Card />
